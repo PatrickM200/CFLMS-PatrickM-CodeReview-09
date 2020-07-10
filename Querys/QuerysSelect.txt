@@ -1,0 +1,35 @@
+1. //HEAVIEST PACKAGE// 
+
+SELECT processed.processed_id, processed.weight, processed.employees_id
+FROM processed
+WHERE processed.weight = (
+    SELECT MAX(processed.weight)
+    FROM processed
+);
+
+2. //SHOW CUSTOMER ID FIRSTNAME LASTNAME AND THE ADRESS STREET HOUSENUMBER ZIP-CODE DEPARTMENT-NUMBER AND CITYNAME/COUNTRYNAME//
+SELECT 
+	customer.customer_id, customer.first_name, customer.last_name,
+	
+    address.street_name, address.house_number, address.zip_code, address.apartment_number, address.city_name, 
+	address.country_name
+FROM address
+RIGHT JOIN customer ON customer.customer_id=address.address_id;
+
+3. //SHOW CUNSTOERM ID, FULLNAME + PROCESSED WEIGHT ID AND THE EMPLYEES ID
+
+SELECT 
+	customer.customer_id, customer.first_name, customer.last_name,
+	processed.processed_id, processed.weight, processed.employees_id
+
+FROM processed
+RIGHT JOIN customer ON customer.customer_id=processed.processed_id;
+
+4. //3 TABLES CONNECTED INTO ONE -> WORKING BUT I THINK ITS WORNG//
+
+SELECT *
+FROM address
+INNER JOIN customer ON address.address_id = address.address_id
+INNER JOIN delivery ON delivery.delivery_time = delivery.delivery_time
+INNER JOIN employees ON employees.first_name = employees.first_name
+group by address.address_id
